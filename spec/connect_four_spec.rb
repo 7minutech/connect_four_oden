@@ -15,7 +15,7 @@ describe ConnectFour do
         allow(game_move).to receive(:gets).and_return(invalid_move_char, invalid_move_range, valid_move)
       end
       it "returns an error message twice and exits loop" do
-        prompt_message = "Please enter number from 1-7 to place in a column: "
+        prompt_message = "Please enter number from 1-7 to place in a column or q to quit: "
         error_message = "Move must be between 1 and 7"
         allow(game_move).to receive(:puts).with(prompt_message)
         expect(game_move).to receive(:puts).with(error_message).twice
@@ -30,7 +30,7 @@ describe ConnectFour do
         allow(game_move).to receive(:gets).and_return(invalid_move_range, valid_move)
       end
       it "returns an error message once and exits loop" do
-        prompt_message = "Please enter number from 1-7 to place in a column: "
+        prompt_message = "Please enter number from 1-7 to place in a column or q to quit: "
         error_message = "Move must be between 1 and 7"
         allow(game_move).to receive(:puts).with(prompt_message)
         expect(game_move).to receive(:puts).with(error_message).once
@@ -43,7 +43,7 @@ describe ConnectFour do
         allow(game_move).to receive(:gets).and_return(valid_move)
       end
       it "exits loop without printing error message" do
-        prompt_message = "Please enter number from 1-7 to place in a column: "
+        prompt_message = "Please enter number from 1-7 to place in a column or q to quit: "
         error_message = "Move must be between 1 and 7"
         allow(game_move).to receive(:puts).with(prompt_message)
         expect(game_move).not_to receive(:puts).with(error_message)
