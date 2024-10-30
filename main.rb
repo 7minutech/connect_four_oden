@@ -1,5 +1,3 @@
-black_circle = "\u26AB"
-empty_circle = "\u3007"
-white_circle = "\u26AA"
+require_relative "lib/connect_four"
 
-print "[#{white_circle}| #{black_circle}| #{empty_circle}| #{empty_circle}| #{empty_circle}| #{empty_circle}]"
+game = ConnectFour.new
