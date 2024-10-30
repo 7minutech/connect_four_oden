@@ -48,4 +48,55 @@ describe ConnectFour do
       end
     end
   end
+  describe "place_move" do
+    let(:game_place_move) { described_class.new }
+    context "when one valid is given" do
+      before do
+        valid_move = "1"
+        allow(game_place_move).to receive(:gets).and_return(valid_move)
+      end
+      it "places white circle accordingly" do
+        player_1_piece = "\u26AA"
+        game_place_move.send(:valid_player_move)
+        game_place_move.send(:place_move)
+        expect(game_place_move.board[5][0]).to eq(player_1_piece)
+      end
+    end
+    context "when two valid moves are given" do
+      before do
+        valid_move1 = "1"
+        valid_move2 = "2"
+        allow(game_place_move).to receive(:gets).and_return(valid_move1, valid_move2)
+      end
+      it "places a white circle and then a black circle accordingly" do
+        player_1_piece = "\u26AA"
+        player_2_piece = "\u26AB"
+        game_place_move.send(:valid_player_move)
+        game_place_move.send(:place_move)
+        game_place_move.send(:next_round)
+        game_place_move.send(:valid_player_move)
+        game_place_move.send(:place_move)
+        expect(game_place_move.board[5][0]).to eq(player_1_piece)
+        expect(game_place_move.board[5][1]).to eq(player_2_piece)
+      end
+    end
+    context "when two valid moves are given for the column" do
+      before do
+        valid_move1 = "3"
+        valid_move2 = "3"
+        allow(game_place_move).to receive(:gets).and_return(valid_move1, valid_move2)
+      end
+      it "places a white circle and then a black circle accordingly" do
+        player_1_piece = "\u26AA"
+        player_2_piece = "\u26AB"
+        game_place_move.send(:valid_player_move)
+        game_place_move.send(:place_move)
+        game_place_move.send(:next_round)
+        game_place_move.send(:valid_player_move)
+        game_place_move.send(:place_move)
+        expect(game_place_move.board[5][2]).to eq(player_1_piece)
+        expect(game_place_move.board[4][2]).to eq(player_2_piece)
+      end
+    end
+  end
 end
