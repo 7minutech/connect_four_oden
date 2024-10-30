@@ -1,3 +1,4 @@
+# defines a game of connect four through the command line
 class ConnectFour
   def initialize
     @move = nil
