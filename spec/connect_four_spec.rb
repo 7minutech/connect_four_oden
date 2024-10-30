@@ -2,7 +2,7 @@ require_relative "../lib/connect_four"
 
 describe ConnectFour do
   before do
-    allow($stdout).to receive(:write) # Suppresses all console output
+    # allow($stdout).to receive(:write) # Suppresses all console output
   end
   describe "#valid_player_move" do
     let(:game_move) { described_class.new }
@@ -205,6 +205,55 @@ describe ConnectFour do
         move_count = 7
         move_count.times { game_over.play_round }
         expect(game_over.horizantal_win?).to be false
+      end
+    end
+  end
+
+  describe "diagonal_win?" do
+    let(:game_over) { described_class.new }
+    context "Once a connect four is reached diagonally going right" do
+      before do
+        winning_diagonal_moves = %w[1 2 2 3 3 4 3 4 4 5 4]
+        allow(game_over).to receive(:gets).and_return(*winning_diagonal_moves)
+      end
+      it "returns true" do
+        move_count = 11
+        move_count.times { game_over.play_round }
+        expect(game_over.diagonal_win?).to be true
+      end
+    end
+    context "Once a connect four is reached diagonally going left" do
+      before do
+        winning_diagonal_moves = %w[4 3 3 2 2 1 2 1 1 5 1]
+        allow(game_over).to receive(:gets).and_return(*winning_diagonal_moves)
+      end
+      it "returns true" do
+        move_count = 11
+        move_count.times { game_over.play_round }
+        expect(game_over.diagonal_win?).to be true
+      end
+    end
+    context "A connect four has been reached diagonally with different pieces in the same diagonal" do
+      before do
+        player_1_piece = "\u26AA"
+        player_2_piece = "\u26AB"
+        game_over.board[0][0] = player_1_piece
+        game_over.board[1][1] = player_2_piece
+        (2..5).each { |row| game_over.board[row][row] = player_1_piece }
+      end
+      it "returns true" do
+        expect(game_over.diagonal_win?).to be true
+      end
+    end
+    context "No connect four has been reached diagonally" do
+      before do
+        winning_diagonal_moves = %w[1 2 3 4 5 1 2]
+        allow(game_over).to receive(:gets).and_return(*winning_diagonal_moves)
+      end
+      it "returns false" do
+        move_count = 7
+        move_count.times { game_over.play_round }
+        expect(game_over.diagonal_win?).to be false
       end
     end
   end
