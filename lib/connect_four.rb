@@ -25,8 +25,11 @@ class ConnectFour
   end
 
   def player_input
-    puts "Please enter number from 1-7 to place in a column: "
+    puts "Please enter number from 1-7 to place in a column or q to quit: "
     @move = gets.to_s.chomp
+    return unless @move == "q"
+
+    abort "Exiting game..."
   end
 
   def display_board
