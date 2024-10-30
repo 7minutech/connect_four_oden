@@ -1,3 +1,5 @@
+require "pry-byebug"
+
 # defines a game of connect four through the command line
 class ConnectFour
   attr_accessor :board, :round
@@ -62,5 +64,31 @@ class ConnectFour
     valid_player_move
     place_move
     next_round
+    display_board
+  end
+
+  def verticle_win?
+    bottom_row = 5
+    columns = 0..6
+    columns.each do |col|
+      next unless @board[bottom_row][col] != EMPTY_CIRCLE
+
+      white_circle_count = 0
+      black_circle_count = 0
+      row = bottom_row
+      while (row > -1) && @board[row][col] != EMPTY_CIRCLE
+        if @board[row][col] == WHITE_CIRCLE
+          white_circle_count += 1
+          black_circle_count -= 1
+        else
+          black_circle_count += 1
+          white_circle_count -= 1
+        end
+        row -= 1
+      end
+
+      return true if white_circle_count > 3 || black_circle_count > 3
+    end
+    false
   end
 end
