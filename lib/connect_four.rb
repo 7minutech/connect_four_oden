@@ -92,7 +92,7 @@ class ConnectFour
     false
   end
 
-  def horizantle_win?
+  def horizantal_win?
     row = 5
     columns = 0..6
     columns.each do |col|
