@@ -2,7 +2,7 @@ require_relative "../lib/connect_four"
 
 describe ConnectFour do
   before do
-    allow($stdout).to receive(:write) # Suppresses all console output
+    # allow($stdout).to receive(:write) # Suppresses all console output
   end
   describe "#valid_player_move" do
     let(:game_move) { described_class.new }
@@ -133,6 +133,42 @@ describe ConnectFour do
         expect(game_round.board[4][0]).to eq(player_2_piece)
         expect(game_round.board[5][2]).to eq(player_1_piece)
         expect(game_round.round).to eq(3)
+      end
+    end
+  end
+  describe "verticle_win?" do
+    let(:game_over) { described_class.new }
+    context "Once a connect four is reached vertically" do
+      before do
+        winning_verticle_moves = %w[1 2 1 2 1 2 1]
+        allow(game_over).to receive(:gets).and_return(*winning_verticle_moves)
+      end
+      it "returns true" do
+        move_count = 7
+        move_count.times { game_over.play_round }
+        expect(game_over.verticle_win?).to be true
+      end
+    end
+    context "A connect four has been reached vertically with different pieces in the same column" do
+      before do
+        winning_verticle_moves = %w[1 1 1 2 1 2 1 2 1]
+        allow(game_over).to receive(:gets).and_return(*winning_verticle_moves)
+      end
+      it "returns true" do
+        move_count = 9
+        move_count.times { game_over.play_round }
+        expect(game_over.verticle_win?).to be true
+      end
+    end
+    context "No connect four has been reached vertcally" do
+      before do
+        winning_verticle_moves = %w[1 1 1 2 1 3 1 2]
+        allow(game_over).to receive(:gets).and_return(*winning_verticle_moves)
+      end
+      it "returns true" do
+        move_count = 8
+        move_count.times { game_over.play_round }
+        expect(game_over.verticle_win?).to be false
       end
     end
   end
