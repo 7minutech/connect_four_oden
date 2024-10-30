@@ -172,39 +172,39 @@ describe ConnectFour do
       end
     end
   end
-  describe "horizantle_win?" do
+  describe "horizantal_win?" do
     let(:game_over) { described_class.new }
     context "Once a connect four is reached horizantally" do
       before do
-        winning_horizantle_moves = %w[1 1 2 2 3 3 4]
-        allow(game_over).to receive(:gets).and_return(*winning_horizantle_moves)
+        winning_horizantal_moves = %w[1 1 2 2 3 3 4]
+        allow(game_over).to receive(:gets).and_return(*winning_horizantal_moves)
       end
       it "returns true" do
         move_count = 7
         move_count.times { game_over.play_round }
-        expect(game_over.horizantle_win?).to be true
+        expect(game_over.horizantal_win?).to be true
       end
     end
     context "A connect four has been reached horizantally with different pieces in the same row" do
       before do
-        winning_horizantle_moves = %w[1 2 3 4 2 1 3 1 4 5 5]
-        allow(game_over).to receive(:gets).and_return(*winning_horizantle_moves)
+        winning_horizantal_moves = %w[1 2 3 4 2 1 3 1 4 5 5]
+        allow(game_over).to receive(:gets).and_return(*winning_horizantal_moves)
       end
       it "returns true" do
         move_count = 11
         move_count.times { game_over.play_round }
-        expect(game_over.horizantle_win?).to be true
+        expect(game_over.horizantal_win?).to be true
       end
     end
     context "No connect four has been reached horizantally" do
       before do
-        winning_horizantle_moves = %w[1 2 3 4 5 1 2]
-        allow(game_over).to receive(:gets).and_return(*winning_horizantle_moves)
+        winning_horizantal_moves = %w[1 2 3 4 5 1 2]
+        allow(game_over).to receive(:gets).and_return(*winning_horizantal_moves)
       end
       it "returns false" do
         move_count = 7
         move_count.times { game_over.play_round }
-        expect(game_over.horizantle_win?).to be false
+        expect(game_over.horizantal_win?).to be false
       end
     end
   end
