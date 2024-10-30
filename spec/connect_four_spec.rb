@@ -165,7 +165,7 @@ describe ConnectFour do
         winning_vertical_moves = %w[1 1 1 2 1 3 1 2]
         allow(game_over).to receive(:gets).and_return(*winning_vertical_moves)
       end
-      it "returns true" do
+      it "returns false" do
         move_count = 8
         move_count.times { game_over.play_round }
         expect(game_over.vertical_win?).to be false
