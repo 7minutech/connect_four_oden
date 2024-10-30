@@ -1,6 +1,9 @@
 require_relative "../lib/connect_four"
 
 describe ConnectFour do
+  before do
+    allow($stdout).to receive(:write) # Suppresses all console output
+  end
   describe "#valid_player_move" do
     let(:game_move) { described_class.new }
     context "when user inputs an invalid number and a char then a valid move" do
@@ -96,6 +99,40 @@ describe ConnectFour do
         game_place_move.send(:place_move)
         expect(game_place_move.board[5][2]).to eq(player_1_piece)
         expect(game_place_move.board[4][2]).to eq(player_2_piece)
+      end
+    end
+  end
+  describe "#play_round" do
+    let(:game_round) { described_class.new }
+    context "when 1 round is played" do
+      before do
+        valid_move = "2"
+        allow(game_round).to receive(:gets).and_return(valid_move)
+      end
+      it "gets player move and updates the board and round" do
+        player_1_piece = "\u26AA"
+        game_round.send(:play_round)
+        expect(game_round.board[5][1]).to eq(player_1_piece)
+        expect(game_round.round).to eq(1)
+      end
+    end
+    context "when 3 rounds have been played" do
+      before do
+        valid_move1 = "1"
+        valid_move2 = "1"
+        valid_move3 = "3"
+        allow(game_round).to receive(:gets).and_return(valid_move1, valid_move2, valid_move3)
+      end
+      it "get player moves and update board and round accordingly" do
+        player_1_piece = "\u26AA"
+        player_2_piece = "\u26AB"
+        game_round.send(:play_round)
+        game_round.send(:play_round)
+        game_round.send(:play_round)
+        expect(game_round.board[5][0]).to eq(player_1_piece)
+        expect(game_round.board[4][0]).to eq(player_2_piece)
+        expect(game_round.board[5][2]).to eq(player_1_piece)
+        expect(game_round.round).to eq(3)
       end
     end
   end
