@@ -117,14 +117,12 @@ class ConnectFour
     false
   end
 
-  def diagonal_win?
+  def diagonal_right_win?
     rows = 0..5
-    bottom_row = 5
     columns = 0..6
-    rows.each do |row_number|
-      row_start = bottom_row - row_number
+    rows.each do |row|
+      row_start = row
       columns.each do |col|
-        col_start = col
         row = row_start
         next unless @board[row][col] != EMPTY_CIRCLE
 
@@ -143,8 +141,24 @@ class ConnectFour
             col += 1
           end
         end
+        return true if white_circle_count > 3 || black_circle_count > 3
+      end
+    end
+    false
+  end
+
+  def diagonal_left_win?
+    rows = 0..5
+    bottom_row = 5
+    columns = 3..6
+    rows.each do |row|
+      row_start = row
+      columns.each do |col|
         row = row_start
-        col = col_start
+        next unless @board[row][col] != EMPTY_CIRCLE
+
+        white_circle_count = 0
+        black_circle_count = 0
         if col >= 3
           while (row > -1) && @board[row][col] != EMPTY_CIRCLE
             if @board[row][col] == WHITE_CIRCLE
@@ -158,10 +172,15 @@ class ConnectFour
             col -= 1
           end
         end
-
         return true if white_circle_count > 3 || black_circle_count > 3
       end
     end
+    false
+  end
+
+  def diagonal_win?
+    return true if diagonal_right_win? || diagonal_left_win?
+
     false
   end
 end
