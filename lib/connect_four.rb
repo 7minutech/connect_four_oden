@@ -91,4 +91,29 @@ class ConnectFour
     end
     false
   end
+
+  def horizantle_win?
+    row = 5
+    columns = 0..6
+    columns.each do |col|
+      next unless @board[row][col] != EMPTY_CIRCLE
+
+      white_circle_count = 0
+      black_circle_count = 0
+      while (col < 7) && @board[row][col] != EMPTY_CIRCLE
+        if @board[row][col] == WHITE_CIRCLE
+          white_circle_count += 1
+          black_circle_count -= 1
+        else
+          black_circle_count += 1
+          white_circle_count -= 1
+        end
+        col += 1
+      end
+      row -= 1
+
+      return true if white_circle_count > 3 || black_circle_count > 3
+    end
+    false
+  end
 end
