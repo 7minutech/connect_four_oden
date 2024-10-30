@@ -1,6 +1,6 @@
 # defines a game of connect four through the command line
 class ConnectFour
-  attr_accessor :board
+  attr_accessor :board, :round
 
   EMPTY_CIRCLE = "\u3007".freeze
   WHITE_CIRCLE = "\u26AA".freeze
@@ -53,5 +53,11 @@ class ConnectFour
 
   def next_round
     @round += 1
+  end
+
+  def play_round
+    valid_player_move
+    place_move
+    next_round
   end
 end
