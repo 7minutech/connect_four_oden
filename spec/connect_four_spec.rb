@@ -48,7 +48,7 @@ describe ConnectFour do
       end
     end
   end
-  describe "place_move" do
+  describe "#place_move" do
     let(:game_place_move) { described_class.new }
     context "when one valid is given" do
       before do
