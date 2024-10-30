@@ -136,39 +136,39 @@ describe ConnectFour do
       end
     end
   end
-  describe "verticle_win?" do
+  describe "vertical_win?" do
     let(:game_over) { described_class.new }
     context "Once a connect four is reached vertically" do
       before do
-        winning_verticle_moves = %w[1 2 1 2 1 2 1]
-        allow(game_over).to receive(:gets).and_return(*winning_verticle_moves)
+        winning_vertical_moves = %w[1 2 1 2 1 2 1]
+        allow(game_over).to receive(:gets).and_return(*winning_vertical_moves)
       end
       it "returns true" do
         move_count = 7
         move_count.times { game_over.play_round }
-        expect(game_over.verticle_win?).to be true
+        expect(game_over.vertical_win?).to be true
       end
     end
     context "A connect four has been reached vertically with different pieces in the same column" do
       before do
-        winning_verticle_moves = %w[1 1 1 2 1 2 1 2 1]
-        allow(game_over).to receive(:gets).and_return(*winning_verticle_moves)
+        winning_vertical_moves = %w[1 1 1 2 1 2 1 2 1]
+        allow(game_over).to receive(:gets).and_return(*winning_vertical_moves)
       end
       it "returns true" do
         move_count = 9
         move_count.times { game_over.play_round }
-        expect(game_over.verticle_win?).to be true
+        expect(game_over.vertical_win?).to be true
       end
     end
     context "No connect four has been reached vertcally" do
       before do
-        winning_verticle_moves = %w[1 1 1 2 1 3 1 2]
-        allow(game_over).to receive(:gets).and_return(*winning_verticle_moves)
+        winning_vertical_moves = %w[1 1 1 2 1 3 1 2]
+        allow(game_over).to receive(:gets).and_return(*winning_vertical_moves)
       end
       it "returns true" do
         move_count = 8
         move_count.times { game_over.play_round }
-        expect(game_over.verticle_win?).to be false
+        expect(game_over.vertical_win?).to be false
       end
     end
   end

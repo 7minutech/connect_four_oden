@@ -67,7 +67,7 @@ class ConnectFour
     display_board
   end
 
-  def verticle_win?
+  def vertical_win?
     bottom_row = 5
     columns = 0..6
     columns.each do |col|
