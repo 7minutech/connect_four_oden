@@ -143,10 +143,10 @@ class ConnectFour
           while (row > -1) && @board[row][col] != EMPTY_CIRCLE
             if @board[row][col] == WHITE_CIRCLE
               white_circle_count += 1
-              black_circle_count = 1
+              black_circle_count = 0
             else
               black_circle_count += 1
-              white_circle_count = 1
+              white_circle_count = 0
             end
             row -= 1
             col += 1
