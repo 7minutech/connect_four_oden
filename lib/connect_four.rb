@@ -205,8 +205,19 @@ class ConnectFour
     false
   end
 
+  def game_over_message
+    if @round > 42
+      puts "It is a tie"
+    elsif @round.odd?
+      puts "Player 1 wins!!!"
+    else
+      puts "Player 2 wins!!!"
+    end
+  end
+
   def play_game
     play_round until game_over?
+    game_over_message
     reset if reset?
   end
 end
