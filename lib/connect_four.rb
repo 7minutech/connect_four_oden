@@ -185,7 +185,7 @@ class ConnectFour
   end
 
   def game_over?
-    return true if rounds > 3 && (vertical_win? || horizantal_win? || diagonal_win?)
+    return true if @round > 3 && (vertical_win? || horizantal_win? || diagonal_win?)
 
     false
   end
@@ -201,5 +201,8 @@ class ConnectFour
     return true if user_input == "y"
 
     false
+  end
+
+
   end
 end
