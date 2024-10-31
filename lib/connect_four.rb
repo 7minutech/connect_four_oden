@@ -194,4 +194,12 @@ class ConnectFour
     @round = 0
     @board = Array.new(6) { Array.new(7) { "\u3007" } }
   end
+
+  def reset?
+    print "Would you like to play again y or n: "
+    user_input = gets.chomp
+    return true if user_input == "y"
+
+    false
+  end
 end
