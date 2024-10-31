@@ -216,6 +216,7 @@ class ConnectFour
   end
 
   def play_game
+    display_board
     play_round until game_over?
     game_over_message
     reset if reset?
