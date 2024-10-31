@@ -55,7 +55,6 @@ class ConnectFour
   def place_move
     col = @move -= 1
     row = 5
-
     row -= 1 until @board[row][col] == EMPTY_CIRCLE
     @board[row][col] = if @round.even?
                          WHITE_CIRCLE
@@ -202,7 +201,6 @@ class ConnectFour
   def reset
     @round = 0
     @board = Array.new(6) { Array.new(7) { "\u3007" } }
-    play_game
   end
 
   def reset?
@@ -227,6 +225,9 @@ class ConnectFour
     display_board
     play_round until game_over?
     game_over_message
-    reset if reset?
+    return unless reset?
+
+    reset
+    play_game
   end
 end
