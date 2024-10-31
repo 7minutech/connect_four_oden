@@ -79,10 +79,10 @@ class ConnectFour
       while (row > -1) && @board[row][col] != EMPTY_CIRCLE
         if @board[row][col] == WHITE_CIRCLE
           white_circle_count += 1
-          black_circle_count -= 1
+          black_circle_count = 0
         else
           black_circle_count += 1
-          white_circle_count -= 1
+          white_circle_count = 0
         end
         row -= 1
       end
@@ -103,10 +103,10 @@ class ConnectFour
       while (col < 7) && @board[row][col] != EMPTY_CIRCLE
         if @board[row][col] == WHITE_CIRCLE
           white_circle_count += 1
-          black_circle_count -= 1
+          black_circle_count = 0
         else
           black_circle_count += 1
-          white_circle_count -= 1
+          white_circle_count = 0
         end
         col += 1
       end
@@ -132,10 +132,10 @@ class ConnectFour
           while (row > -1) && @board[row][col] != EMPTY_CIRCLE
             if @board[row][col] == WHITE_CIRCLE
               white_circle_count += 1
-              black_circle_count -= 1
+              black_circle_count = 1
             else
               black_circle_count += 1
-              white_circle_count -= 1
+              white_circle_count = 1
             end
             row -= 1
             col += 1
@@ -185,7 +185,7 @@ class ConnectFour
   end
 
   def game_over?
-    return true if @round.between(3, 42) && (vertical_win? || horizantal_win? || diagonal_win?)
+    return true if @round.between?(3, 42) && (vertical_win? || horizantal_win? || diagonal_win?)
 
     false
   end
