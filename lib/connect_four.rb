@@ -183,4 +183,10 @@ class ConnectFour
 
     false
   end
+
+  def game_over?
+    return true if rounds > 3 && (vertical_win? || horizantal_win? || diagonal_win?)
+
+    false
+  end
 end
