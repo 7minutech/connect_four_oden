@@ -2,7 +2,7 @@ require_relative "../lib/connect_four"
 
 describe ConnectFour do
   before do
-    # allow($stdout).to receive(:write) # Suppresses all console output
+    allow($stdout).to receive(:write) # Suppresses all console output
   end
   describe "#valid_player_move" do
     let(:game_move) { described_class.new }
@@ -273,6 +273,36 @@ describe ConnectFour do
         game_reset.send(:reset)
         expect(game_reset.round).to eq(0)
         expect(game_reset.board).not_to include(player_1_piece, player_2_piece)
+      end
+    end
+  end
+
+  describe "#game_over_message" do
+    let(:game_over) { described_class.new }
+    context "if player 1 wins" do
+      before do
+        moves = %w[1 1 2 2 3 3 4]
+        allow(game_over).to receive(:gets).and_return(*moves)
+      end
+      it "returns win message for player 1" do
+        prompt_message = "Please enter number from 1-7 to place in a column or q to quit: "
+        player_1_message = "Player 1 wins!!!"
+        allow(game_over).to receive(:puts).with(prompt_message)
+        expect(game_over).to receive(:puts).with(player_1_message)
+        game_over.send(:play_game)
+      end
+    end
+    context "if player 2 wins" do
+      before do
+        moves = %w[1 1 2 2 3 3 5 4 6 4]
+        allow(game_over).to receive(:gets).and_return(*moves)
+      end
+      it "returns win message for player 2" do
+        prompt_message = "Please enter number from 1-7 to place in a column or q to quit: "
+        player_2_message = "Player 2 wins!!!"
+        allow(game_over).to receive(:puts).with(prompt_message)
+        expect(game_over).to receive(:puts).with(player_2_message)
+        game_over.send(:play_game)
       end
     end
   end
