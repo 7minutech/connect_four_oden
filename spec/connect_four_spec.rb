@@ -2,7 +2,7 @@ require_relative "../lib/connect_four"
 
 describe ConnectFour do
   before do
-    # allow($stdout).to receive(:write) # Suppresses all console output
+    allow($stdout).to receive(:write) # Suppresses all console output
   end
   describe "#valid_player_move" do
     let(:game_move) { described_class.new }
