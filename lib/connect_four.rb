@@ -48,6 +48,7 @@ class ConnectFour
   def place_move
     col = @move -= 1
     row = 5
+
     row -= 1 until @board[row][col] == EMPTY_CIRCLE
     @board[row][col] = if @round.even?
                          WHITE_CIRCLE
@@ -94,8 +95,9 @@ class ConnectFour
 
   def horizantal_win?
     row = 5
-    columns = 0..6
-    columns.each do |col|
+    columns = 7
+    columns.times do
+      col = 0
       next unless @board[row][col] != EMPTY_CIRCLE
 
       white_circle_count = 0
