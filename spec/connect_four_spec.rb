@@ -257,4 +257,23 @@ describe ConnectFour do
       end
     end
   end
+
+  describe "reset" do
+    let(:game_reset) { described_class.new }
+    context "after a game has finished and they choose to play again" do
+      before do
+        winning_horizantal_moves = %w[1 1 2 2 3 3 4]
+        allow(game_reset).to receive(:gets).and_return(*winning_horizantal_moves)
+      end
+      it "returns game back to init state" do
+        moves = 7
+        player_1_piece = "\u26AA"
+        player_2_piece = "\u26AB"
+        moves.times { game_reset.send(:play_round) }
+        game_reset.send(:reset)
+        expect(game_reset.round).to eq(0)
+        expect(game_reset.board).not_to include(player_1_piece, player_2_piece)
+      end
+    end
+  end
 end
