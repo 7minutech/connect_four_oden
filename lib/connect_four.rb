@@ -34,7 +34,16 @@ class ConnectFour
     abort "Exiting game..."
   end
 
+  def display_turn
+    if round.even?
+      puts "Player 1 turn"
+    else
+      puts "Player 2 turn"
+    end
+  end
+
   def display_board
+    display_turn
     @board.each do |row|
       row.each do |col|
         print " | "
