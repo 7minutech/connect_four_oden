@@ -189,4 +189,9 @@ class ConnectFour
 
     false
   end
+
+  def reset
+    @round = 0
+    @board = Array.new(6) { Array.new(7) { "\u3007" } }
+  end
 end
