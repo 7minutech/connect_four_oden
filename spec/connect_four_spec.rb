@@ -2,7 +2,7 @@ require_relative "../lib/connect_four"
 
 describe ConnectFour do
   before do
-    allow($stdout).to receive(:write) # Suppresses all console output
+    # allow($stdout).to receive(:write) # Suppresses all console output
   end
   describe "#valid_player_move" do
     let(:game_move) { described_class.new }
@@ -262,11 +262,11 @@ describe ConnectFour do
     let(:game_reset) { described_class.new }
     context "after a game has finished and they choose to play again" do
       before do
-        winning_horizantal_moves = %w[1 1 2 2 3 3 4]
+        winning_horizantal_moves = %w[1 1 2 2 3 3]
         allow(game_reset).to receive(:gets).and_return(*winning_horizantal_moves)
       end
       it "returns game back to init state" do
-        moves = 7
+        moves = 6
         player_1_piece = "\u26AA"
         player_2_piece = "\u26AB"
         moves.times { game_reset.send(:play_round) }
@@ -287,7 +287,12 @@ describe ConnectFour do
       it "returns win message for player 1" do
         prompt_message = "Please enter number from 1-7 to place in a column or q to quit: "
         player_1_message = "Player 1 wins!!!"
+        turn_message1 = "Player 1 turn"
+        turn_message2 = "Player 2 turn"
         allow(game_over).to receive(:puts).with(prompt_message)
+        allow(game_over).to receive(:puts).with(turn_message1)
+        allow(game_over).to receive(:puts).with(turn_message2)
+
         expect(game_over).to receive(:puts).with(player_1_message)
         game_over.send(:play_game)
       end
@@ -300,7 +305,11 @@ describe ConnectFour do
       it "returns win message for player 2" do
         prompt_message = "Please enter number from 1-7 to place in a column or q to quit: "
         player_2_message = "Player 2 wins!!!"
+        turn_message1 = "Player 1 turn"
+        turn_message2 = "Player 2 turn"
         allow(game_over).to receive(:puts).with(prompt_message)
+        allow(game_over).to receive(:puts).with(turn_message1)
+        allow(game_over).to receive(:puts).with(turn_message2)
         expect(game_over).to receive(:puts).with(player_2_message)
         game_over.send(:play_game)
       end
